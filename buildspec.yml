@@ -3,18 +3,14 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing git..."
-      - yum install -y git
-  pre_build:
-    commands:
-      - echo "Cloning repository..."
-      - git clone https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/assignment-4.git site-code
+      - echo "Installing dependencies"
   build:
     commands:
-      - echo "Build phase complete"
+      - echo "Build started"
   post_build:
     commands:
-      - aws s3 sync site-code/ s3://static-website-2005/ --delete
+      - echo "Deploying to S3"
+      - aws s3 sync . s3://static-website-2005/ --delete
 
 artifacts:
   files:
